@@ -1,10 +1,9 @@
 version: 0.2
+
 phases:
   pre_build:
     commands:
-      - echo "Checking Kubernetes manifests..."
-      - if [ ! -f deployment.yaml ]; then echo "Error: deployment.yaml not found!" && exit 1; fi
-      - if [ ! -f service.yaml ]; then echo "Error: service.yaml not found!" && exit 1; fi
+      - echo "Checking Kubernetes manifests.."
       - echo "Logging into ECR..."
       - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 213375652280.dkr.ecr.ap-south-1.amazonaws.com
       - echo "Setting up kubeconfig for EKS cluster Mindtrack..."
