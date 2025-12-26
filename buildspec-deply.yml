@@ -30,7 +30,7 @@ phases:
       - echo "Waiting for LoadBalancer DNS..."
       - |
         for i in {1..20}; do
-          DNS=$(kubectl get svc brain-task-app-service \
+          DNS=$(kubectl get svc brain-task-service \
           -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
           if [ -n "$DNS" ]; then
             echo "DNS found!"
