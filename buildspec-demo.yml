@@ -10,7 +10,7 @@ phases:
       - aws eks update-kubeconfig --region ap-south-1 --name Mindtrack
   build:
     commands:
-      - echo "Using existing Docker image from ECR: brain-task-app:latest"
+      - echo "Using existing Docker image from ECR brain-task-app:latest"
       - docker pull 213375652280.dkr.ecr.ap-south-1.amazonaws.com/brain-task-app:latest
   post_build:
     commands:
