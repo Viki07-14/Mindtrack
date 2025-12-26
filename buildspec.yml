@@ -10,9 +10,9 @@ phases:
       - echo "Starting build phase and Building Docker image 'brain-task-app:latest'..."
       - docker build -t brain-task-app:latest .
       - echo "Tagging image for ECR as 'brain-task-app:4'..."
-      - docker tag brain-task-app:latest 213375652280.dkr.ecr.ap-south-1.amazonaws.com/brain-task-app:4
+      - docker tag brain-task-app:latest 213375652280.dkr.ecr.ap-south-1.amazonaws.com/brain-task-app:latest
   post_build:
     commands:
       - echo "Starting post-build phase and Pushing Docker image to ECR..."
-      - docker push 213375652280.dkr.ecr.ap-south-1.amazonaws.com/brain-task-app:4
+      - docker push 213375652280.dkr.ecr.ap-south-1.amazonaws.com/brain-task-app:latest
       - echo "Docker image pushed successfully to 213375652280.dkr.ecr.ap-south-1.amazonaws.com/brain-task-app:4"
