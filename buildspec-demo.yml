@@ -1,0 +1,21 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - echo "Checking Kubernetes manifests..."
+      - if [ ! -f deployment.yaml ]; then echo "Error: deployment.yaml not found!" && exit 1; fi
+      - if [ ! -f service.yaml ]; then echo "Error: service.yaml not found!" && exit 1; fi
+      - echo "Logging into ECR..."
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 213375652280.dkr.ecr.ap-south-1.amazonaws.com
+      - echo "Setting up kubeconfig for EKS cluster Mindtrack..."
+      - aws eks update-kubeconfig --region ap-south-1 --name Mindtrack
+  build:
+    commands:
+      - echo "Using existing Docker image from ECR: brain-task-app:latest"
+      - docker pull 213375652280.dkr.ecr.ap-south-1.amazonaws.com/brain-task-app:latest
+  post_build:
+    commands:
+      - echo "Applying Kubernetes manifests..."
+      - kubectl apply -f deployment.yaml
+      - kubectl apply -f service.yaml
+      - echo "Deployment to EKS cluster Mindtrack complete!"
